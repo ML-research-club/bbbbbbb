@@ -1,3 +1,5 @@
 malmo
 *.so
+*.lib
+*.pyd
 malmoutils.py

@@ -15,7 +15,7 @@ You will need `OpenJDK 8`. Install this based on your operating system.
 
 ### malmo
 
-Now go to [this page](https://github.com/microsoft/malmo/releases/tag/0.37.0) and download the `Python 3.6` version for your operating system. If you are on linux and your distro isn't listed, the Ubuntu version might work for you. I tested this on Manjaro, and the Ubuntu verson works fine. After downloading and extracting the folder, rename it to `malmo`. This is so the `.gitignore` file will set that folder to be ignored, as we do not want it in our version control. Now go to `malmo/Python_Examples/` and copy `MalmoPython.so` and `malmoutils.py` to the root directory of the repository, these files are also going to be ignored in version control.
+Now go to [this page](https://github.com/microsoft/malmo/releases/tag/0.37.0) and download the `Python 3.6` version for your operating system. If you are on linux and your distro isn't listed, the Ubuntu version might work for you. I tested this on Manjaro, and the Ubuntu verson works fine. After downloading and extracting the folder, rename it to `malmo`. This is so the `.gitignore` file will set that folder to be ignored, as we do not want it in our version control. Now go to `malmo/Python_Examples/`. If you are using Linux, copy `MalmoPython.so` and `malmoutils.py` to the root directory of the repository. If you are using Windows, copy `MalmoPython.lib`, `MalmoPython.pyd`, and `malmoutils.py` to the root directory of the repository. These files are all going to be ignored in version control as well.
 
 ## Running test.py
 
