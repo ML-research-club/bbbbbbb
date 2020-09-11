@@ -19,8 +19,6 @@ from __future__ import division
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 # ------------------------------------------------------------------------------------------------
 
-# Tutorial sample #4: Challenge - get to the centre of the sponge (with solution)
-
 from builtins import range
 from past.utils import old_div
 import MalmoPython
