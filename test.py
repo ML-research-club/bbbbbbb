@@ -27,6 +27,8 @@ import sys
 import time
 import json
 
+os.environ['MALMO_XSD_PATH'] = "malmo/Schemas"
+
 if sys.version_info[0] == 2:
     sys.stdout = os.fdopen(sys.stdout.fileno(), 'w', 0)  # flush print output immediately
 else:
