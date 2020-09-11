@@ -4,7 +4,7 @@
 
 ### python
 
-First you must have `Python 3.6` installed on your system. I recommend doing this with some virtual environment, I like using `pyenv`. Next, install these dependencies:
+First you must have `Python 3.6` (I tested with `3.6.11`) installed on your system. I recommend doing this with some virtual environment, I like using `pyenv`. Next, install these dependencies:
 
 * `python -m pip install future`
 * `python -m pip install pillow`
