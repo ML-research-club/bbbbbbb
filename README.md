@@ -4,14 +4,14 @@
 
 ### python
 
-First you must have python 3.6 installed on your system. I recommend doing this with some virtual environment, I like using `pyenv`. Next, install these dependencies:
+First you must have `Python 3.6` installed on your system. I recommend doing this with some virtual environment, I like using `pyenv`. Next, install these dependencies:
 
 * `python -m pip install future`
 * `python -m pip install pillow`
 
 ### java
 
-You will need `OpenJDK 8` as well. Install this based on your operating system. 
+You will need `OpenJDK 8`. Install this based on your operating system. 
 
 ### malmo
 
