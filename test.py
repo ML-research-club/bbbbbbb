@@ -27,6 +27,7 @@ import sys
 import time
 import json
 
+#Set environmental variable for Schemas
 os.environ['MALMO_XSD_PATH'] = "malmo/Schemas"
 
 if sys.version_info[0] == 2:
