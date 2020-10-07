@@ -78,16 +78,19 @@ def getYaw(agent):
     observation = json.loads(world_state.observations[-1].text)
     return observation.get("Yaw")
 
-def rotate(agent, angle):
-    turnSpeed = angle / 360
-    agent.sendCommand("turn " + str(turnSpeed))
-    time.sleep(1)
+def rotate(agent, turnSpeed):
+    agent.sendCommand("turn " + str(turnSpeed / 360))
+    agent.getWorldState()
+
+def stopRotation(agent):
     agent.sendCommand("turn 0")
-    # Get the agent's world state so that we know something about the agent has changed.
     agent.getWorldState()
 
 def newRotation(agent):
-    rotate(agent, random.random() * 360 - 180)
+    turnSpeed = (random.random() * 360 - 180) / 360
+    agent.sendCommand("turn " + str(turnSpeed))
+    time.sleep(1)
+    agent.sendCommand("turn 0")
 
 # Create default Malmo objects:
 def startMission():
