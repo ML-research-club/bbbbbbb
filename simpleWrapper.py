@@ -35,6 +35,7 @@ def fitness(nn):
 	diamondPillar.stopRotation(agent)
 	fit = diamondPillar.getYaw(agent) - 90
 	print("fitness is: {}.".format(diamondPillar.getYaw(agent) - 90))
+	print(diamondPillar.getBlock(agent))
 	return diamondPillar.getYaw(agent) - 90
 
 class Generation:

@@ -63,6 +63,7 @@ missionXML='''<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
                 </AgentStart>
                 <AgentHandlers>
                   <ObservationFromFullStats/>
+                  <ObservationFromRay/>
                   <ContinuousMovementCommands turnSpeedDegs="360"/>
                 </AgentHandlers>
               </AgentSection>
@@ -91,6 +92,15 @@ def newRotation(agent):
     agent.sendCommand("turn " + str(turnSpeed))
     time.sleep(1)
     agent.sendCommand("turn 0")
+
+def getBlock(agent):
+    world_state = agent.getWorldState()
+    # Wait until we are able to get a world state with new observations.
+    while world_state.number_of_observations_since_last_state == 0:
+        world_state = agent.getWorldState()
+        time.sleep(0.1)
+    observation = world_state.observations[-1]
+    return observation
 
 # Create default Malmo objects:
 def startMission():
