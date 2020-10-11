@@ -2,16 +2,16 @@ from __future__ import print_function
 from __future__ import division
 # ------------------------------------------------------------------------------------------------
 # Copyright (c) 2016 Microsoft Corporation
-# 
+#
 # Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
 # associated documentation files (the "Software"), to deal in the Software without restriction,
 # including without limitation the rights to use, copy, modify, merge, publish, distribute,
 # sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
 # furnished to do so, subject to the following conditions:
-# 
+#
 # The above copyright notice and this permission notice shall be included in all copies or
 # substantial portions of the Software.
-# 
+#
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
 # NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
 # NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
@@ -60,14 +60,14 @@ def GenCuboid(x1, y1, z1, x2, y2, z2, blocktype):
 
 def GenCuboidWithVariant(x1, y1, z1, x2, y2, z2, blocktype, variant):
     return '<DrawCuboid x1="' + str(x1) + '" y1="' + str(y1) + '" z1="' + str(z1) + '" x2="' + str(x2) + '" y2="' + str(y2) + '" z2="' + str(z2) + '" type="' + blocktype + '" variant="' + variant + '"/>'
-    
+
 missionXML='''<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
             <Mission xmlns="http://ProjectMalmo.microsoft.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-            
+
               <About>
                 <Summary>Hello world!</Summary>
               </About>
-              
+
             <ServerSection>
               <ServerInitialConditions>
                 <Time>
@@ -79,24 +79,32 @@ missionXML='''<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
               <ServerHandlers>
                   <FlatWorldGenerator generatorString="3;7,44*49,73,35:1,159:4,95:13,35:13,159:11,95:10,159:14,159:6,35:6,95:6;12;"/>
                   <DrawingDecorator>
-                    <DrawSphere x="-27" y="70" z="0" radius="30" type="air"/>''' + Menger(-40, 40, -13, 27, "stone", "smooth_granite", "air") + '''
-                    <DrawBlock x="-27" y="39" z="0" type="diamond_block"/>
+                      <DrawLine x1="0" y1="56" z1="0" x2="0" y2="60" z2="0" type="diamond_block"/>
+                      <DrawLine x1="0" y1="56" z1="-1" x2="0" y2="60" z2="-1" type="cobblestone"/>
+                      <DrawLine x1="0" y1="56" z1="-2" x2="0" y2="60" z2="-2" type="stone"/>
+                      <DrawLine x1="0" y1="56" z1="-3" x2="0" y2="60" z2="-3" type="bedrock"/>
+                      <DrawLine x1="0" y1="56" z1="-4" x2="0" y2="60" z2="-4" type="iron_block"/>
+                      <DrawLine x1="0" y1="56" z1="1" x2="0" y2="60" z2="1" type="gold_block"/>
+                      <DrawLine x1="0" y1="56" z1="2" x2="0" y2="60" z2="2" type="emerald_block"/>
+                      <DrawLine x1="0" y1="56" z1="3" x2="0" y2="60" z2="3" type="furnace"/>
+                      <DrawLine x1="0" y1="56" z1="4" x2="0" y2="60" z2="4" type="ice"/>
+                      <DrawLine x1="0" y1="56" z1="5" x2="0" y2="60" z2="5" type="sponge"/>
                   </DrawingDecorator>
                   <ServerQuitFromTimeUp timeLimitMs="30000"/>
                   <ServerQuitWhenAnyAgentFinishes/>
                 </ServerHandlers>
               </ServerSection>
-              
+
               <AgentSection mode="Survival">
                 <Name>MalmoTutorialBot</Name>
                 <AgentStart>
-                    <Placement x="0.5" y="56.0" z="0.5" yaw="90"/>
+                    <Placement x="10" y="56.0" z="0" yaw="90"/>
                     <Inventory>
                         <InventoryItem slot="8" type="diamond_pickaxe"/>
                     </Inventory>
                 </AgentStart>
                 <AgentHandlers>
-                  <ObservationFromRay/>
+                  <ObservationFromMultiRay/>
                   <ContinuousMovementCommands turnSpeedDegs="180"/>
                   <InventoryCommands/>
                   <AgentQuitFromReachingPosition>
