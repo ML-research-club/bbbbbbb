@@ -1,0 +1,12 @@
+Place Mission.xsd and MissionHandlers.xsd in bbbbbbb\malmo\Schemas
+
+Place ObservationFromMultiRay.java in bbbbbbb\malmo\Minecraft\src\main\java\com\microsoft\Malmo\Schemas
+
+Place ObservationFromMultiRayImplementation in bbbbbbb\malmo\Minecraft\src\main\java\com\microsoft\Malmo\MissionHandlers
+
+Open a command terminal in bbbbbbb\malmo\Minecraft\
+Run ".\gradlew build" in the command terminal ("./gradlew build" on mac/linux)
+
+For
+
+Installation complete.
