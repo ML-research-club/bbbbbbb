@@ -1,7 +1,6 @@
 ## Installation
 
 1. Place Mission.xsd and MissionHandlers.xsd in bbbbbbb\malmo\Schemas
-2. Place ObservationFromMultiRay.java in bbbbbbb\malmo\Minecraft\src\main\java\com\microsoft\Malmo\Schemas
 3. Place ObservationFromMultiRayImplementation in bbbbbbb\malmo\Minecraft\src\main\java\com\microsoft\Malmo\MissionHandlers
 
 ## Build

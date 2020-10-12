@@ -30,7 +30,3 @@ Open another terminal, and run `python test.py`, this should cause the Minecraft
 ### Other Example
 
 The `Python_Examples` folder has many more examples in it that you can run. There is also a Tutorial PDF in that folder that explains the examples.
-
-# Things to work on
-
-* Extend the observer to see all the blocks in the agent's view.
