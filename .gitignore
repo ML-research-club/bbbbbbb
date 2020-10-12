@@ -3,3 +3,4 @@ malmo
 *.lib
 *.pyd
 malmoutils.py
+__pycache__
