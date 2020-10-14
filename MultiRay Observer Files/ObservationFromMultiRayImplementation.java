@@ -1,15 +1,15 @@
 // --------------------------------------------------------------------------------------------------
 //  Copyright (c) 2016 Microsoft Corporation
-//  
+//
 //  Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
 //  associated documentation files (the "Software"), to deal in the Software without restriction,
 //  including without limitation the rights to use, copy, modify, merge, publish, distribute,
 //  sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
 //  furnished to do so, subject to the following conditions:
-//  
+//
 //  The above copyright notice and this permission notice shall be included in all copies or
 //  substantial portions of the Software.
-//  
+//
 //  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
 //  NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
 //  NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
@@ -50,22 +50,22 @@ import com.microsoft.Malmo.Utils.MinecraftTypeHelper;
 
 public class ObservationFromMultiRayImplementation extends HandlerBase implements IObservationProducer
 {
-    private ObservationFromMultiRay ofrparams;
-    
+    private ObservationFromMultiRay ofmrparams;
+
     @Override
     public boolean parseParameters(Object params)
     {
         if (params == null || !(params instanceof ObservationFromMultiRay))
             return false;
-        
-        this.ofrparams = (ObservationFromMultiRay)params;
+
+        this.ofmrparams = (ObservationFromMultiRay)params;
         return true;
     }
 
     @Override
     public void writeObservationsToJSON(JsonObject json, MissionInit missionInit)
     {
-        buildMouseOverData(json, this.ofrparams.isIncludeNBT());
+        buildMouseOverData(json, this.ofmrparams.isIncludeNBT());
     }
 
     @Override
@@ -85,7 +85,7 @@ public class ObservationFromMultiRayImplementation extends HandlerBase implement
     public static void buildMouseOverData(JsonObject json, boolean includeNBTData)
     {
         JsonObject jsonFull = new JsonObject();
-        for (int i = -10; i < 10; i++) {
+        for (int i = -2; i <= 2; i++) {
             // We could use Minecraft.getMinecraft().objectMouseOver but it's limited to the block reach distance, and
             // doesn't register floating tile items.
             float partialTicks = 0; // Ideally use Minecraft.timer.renderPartialTicks - but we don't need sub-tick resolution.
@@ -93,7 +93,7 @@ public class ObservationFromMultiRayImplementation extends HandlerBase implement
             float depth = 50;   // Hard-coded for now - in future will be parameterised via the XML.
             Vec3d eyePos = viewer.getPositionEyes(partialTicks);
             Vec3d lookVec = viewer.getLook(partialTicks);
-            Vec3d searchVec = eyePos.addVector(lookVec.xCoord * depth + (i * 20), lookVec.yCoord * depth, lookVec.zCoord * depth);
+            Vec3d searchVec = eyePos.addVector(lookVec.xCoord * depth , lookVec.yCoord * depth, lookVec.zCoord  * depth).rotateYaw(i * 0.25f); // This command rotates in radians, not degrees. -Maxwell
             RayTraceResult mop = Minecraft.getMinecraft().world.rayTraceBlocks(eyePos, searchVec, false, false, false);
             RayTraceResult mopEnt = findEntity(eyePos, lookVec, depth, mop, true);
             if (mopEnt != null)
@@ -155,6 +155,7 @@ public class ObservationFromMultiRayImplementation extends HandlerBase implement
                 }
                 jsonMop.addProperty("inRange", hitDist <= blockReach);
                 jsonMop.addProperty("distance", hitDist);
+                jsonMop.addProperty("vector", searchVec.toString());
             } else if (mop.typeOfHit == RayTraceResult.Type.ENTITY) {
                 // Looking at an entity:
                 Entity entity = mop.entityHit;
@@ -182,6 +183,7 @@ public class ObservationFromMultiRayImplementation extends HandlerBase implement
                 }
                 jsonMop.addProperty("inRange", hitDist <= entityReach);
                 jsonMop.addProperty("distance", hitDist);
+                jsonMop.addProperty("vector", searchVec.toString());
             }
             jsonFull.add("LineOfSight" + i, jsonMop);
         }

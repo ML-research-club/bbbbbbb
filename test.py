@@ -166,7 +166,8 @@ while world_state.is_mission_running:
     if world_state.number_of_observations_since_last_state > 0:
         msg = world_state.observations[-1].text
         observations = json.loads(msg)
-        print(observations)
+        for i in range(-2, 3):
+            print(str(i) + ":\t" + str(observations["Test"]["LineOfSight" + str(i)]) + "\n\n")
 
 print()
 print("Mission ended")
