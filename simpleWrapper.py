@@ -1,42 +1,90 @@
-import diamondPillar
+from Mission import Mission
 import time
 import NEAT
 
+# Set the number of agents that will be used.
+NUM_AGENTS = 1
+
+# Build the XML for the diamondPillar mission.
+missionXML='''<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+            <Mission xmlns="http://ProjectMalmo.microsoft.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+              <About>
+                <Summary>Hello world!</Summary>
+              </About>
+              <ModSettings>
+                <MsPerTick>50</MsPerTick>
+              </ModSettings>
+              <ServerSection>
+                <ServerInitialConditions>
+                    <Time>
+                        <StartTime>12000</StartTime>
+                        <AllowPassageOfTime>false</AllowPassageOfTime>
+                    </Time>
+                </ServerInitialConditions>
+                <ServerHandlers>
+                  <FlatWorldGenerator generatorString="3;7,54*3,2;1;"/>
+                  <DrawingDecorator>
+                    <DrawLine x1="0" y1="56" z1="0" x2="0" y2="60" z2="0" type="diamond_block"/>
+                  </DrawingDecorator>
+                  <ServerQuitFromTimeUp description="" timeLimitMs="50000"/>
+                </ServerHandlers>
+              </ServerSection>'''
+
+for n in range(NUM_AGENTS):
+    missionXML +='''<AgentSection mode="Survival">
+                        <Name>''' + str(n) + '''</Name>
+                        <AgentStart>
+                            <Placement x="5.5" y="56" z = "0.5" yaw="0"/>
+                        </AgentStart>
+                        <AgentHandlers>
+                            <ObservationFromFullStats/>
+                            <ObservationFromMultiRay/>
+                            <MissionQuitCommands/>
+                            <ContinuousMovementCommands turnSpeedDegs="360"/>
+                        </AgentHandlers>
+                    </AgentSection>'''
+
+missionXML += '''</Mission>'''
+
+mission = Mission(missionXML, NUM_AGENTS)
+
 # agent: Agent
-agent = diamondPillar.startMission()
+agents = mission.startMission()
+print(agents)
+agent = agents[0]
 
 # Yaw is left and right
 # getYaw takes an agent and returns that agent's yaw. Yaws between 86 and 94 will be looking at the diamond pillar.
-print(diamondPillar.getYaw(agent))
+print(mission.getYaw(agent))
 
 
 # rotate takes an agent and a number d, and rotates the agent d degrees on yaw axis. -360 <= d <= 360
 # rotate will pause your program for the 1 second it takes to process. This is because idk how to multithread stuff.
-diamondPillar.rotate(agent, 5)
-print(diamondPillar.getYaw(agent))
+mission.rotate(agent, 5)
+print(mission.getYaw(agent))
 
 
 # newRotation takes an agent and rotates it so it will be facing a random direction.
-diamondPillar.newRotation(agent)
-print(diamondPillar.getYaw(agent))
+mission.newRotation(agent)
+print(mission.getYaw(agent))
 
 
 def fitness(nn):
 	global agent
-	global diamondPillar
+	global mission
 	totalTries = 25
 	tickNumber = 0
 	print("Randomizing")
-	diamondPillar.newRotation(agent)
+	mission.newRotation(agent)
 	print("Done randomizing")
 	while tickNumber < totalTries:
-		diamondPillar.rotate(agent, nn.computeOutput([diamondPillar.getYaw(agent), 90])[0])
+		mission.rotate(agent, nn.computeOutput([mission.getYaw(agent), 90])[0])
 		tickNumber += 1
-	diamondPillar.stopRotation(agent)
-	fit = diamondPillar.getYaw(agent) - 90
-	print("fitness is: {}.".format(diamondPillar.getYaw(agent) - 90))
-	print(diamondPillar.getBlock(agent))
-	return diamondPillar.getYaw(agent) - 90
+	mission.stopRotation(agent)
+	fit = mission.getYaw(agent) - 90
+	print("fitness is: {}.".format(mission.getYaw(agent) - 90))
+	print(mission.getBlock(agent))
+	return mission.getYaw(agent) - 90
 
 class Generation:
 	#constructor(prev: Generation, genSize: integer, numInputs: integer, numOutputs: integer): Generation
