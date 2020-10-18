@@ -90,7 +90,6 @@ missionXML='''<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
                       <DrawLine x1="0" y1="56" z1="4" x2="0" y2="60" z2="4" type="ice"/>
                       <DrawLine x1="0" y1="56" z1="5" x2="0" y2="60" z2="5" type="sponge"/>
                   </DrawingDecorator>
-                  <ServerQuitFromTimeUp timeLimitMs="30000"/>
                   <ServerQuitWhenAnyAgentFinishes/>
                 </ServerHandlers>
               </ServerSection>
@@ -104,7 +103,7 @@ missionXML='''<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
                     </Inventory>
                 </AgentStart>
                 <AgentHandlers>
-                  <ObservationFromMultiRay/>
+                  <ObservationFromMultiRay numberOfRays="9" radiansOfVision="1.571"/>
                   <ContinuousMovementCommands turnSpeedDegs="180"/>
                   <InventoryCommands/>
                   <AgentQuitFromReachingPosition>
@@ -166,8 +165,9 @@ while world_state.is_mission_running:
     if world_state.number_of_observations_since_last_state > 0:
         msg = world_state.observations[-1].text
         observations = json.loads(msg)
-        for i in range(-2, 3):
-            print(str(i) + ":\t" + str(observations["Test"]["LineOfSight" + str(i)]) + "\n\n")
+        rayCount = observations["numberOfRays"]
+        for i in range(rayCount):
+            print(str(i) + ":\t" + str(observations["Data"]["LineOfSight" + str(i)]) + "\n\n")
 
 print()
 print("Mission ended")
